@@ -1,0 +1,603 @@
+@import 'reset.min.less';
+@import (reference) 'common.less';
+
+html {
+    font-size: 100px;
+}
+html, body { 
+    height: 100%;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+.mainBox {
+    margin: 0 auto;    
+    max-width: 640px;
+    height: 100%;
+    background: #fff;
+    .prBox {
+        display: none;
+        position: relative;
+        height: 100%;
+        overflow: hidden;
+        /* loading */
+        &.loadingBox {
+            background: #000;
+            .title {
+                position: absolute;
+                left: 0;
+                top: 50%;
+                margin-top: -2.2rem;
+                width: 100%;
+                height: 1.4rem;
+                color: #fff;
+                h1 {
+                line-height: .75rem;  
+                font-size: .5rem;
+                text-align: center;
+                }
+                h2 {
+                    padding-top: .2rem;
+                    height: .45rem;
+                    text-align: center;
+                    letter-spacing: .04rem;
+                }
+            }
+            .progress {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1;
+                margin-top: 1rem;
+                width: 4.6rem;
+                height: 0.3rem;
+                background: #fff;
+                border-radius: .2rem;
+                .current {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    z-index: 2;
+                    // width: 50%;
+                    height: 100%;
+                    border-radius: .15rem;
+                -webkit-background: -webkit-linear-gradient(left bottom,#5cb85c 0%,#5cb85c 25%,#74c274 25%,#74c274 50%,#5cb85c 50%,#5cb85c 75%,#74c274 75%,#74c274 100%);
+                background: -webkit-linear-gradient(left bottom,#5cb85c 0%,#5cb85c 25%,#74c274 25%,#74c274 50%,#5cb85c 50%,#5cb85c 75%,#74c274 75%,#74c274 100%);
+                    background-size: .3rem .3rem;
+                    animation: loadingMove .3s linear 0s infinite both; 
+                    transition: .3s;
+                }
+
+    
+            }
+        }
+        /* phone */
+        &.phoneBox {
+            // display: block;
+            background: url(../img/zf_phoneBg.jpg) no-repeat;
+            background-size: cover;
+            h2 {
+                margin-top: 0.5rem;
+                text-align: center;
+                img {
+                    display: inline-block;
+                    height: 1.25rem;
+                    // width: 2.26rem;
+                }
+                span {
+                    display: none;
+                    margin-top: 0.1rem;
+                    line-height: .3rem;
+                    color: #fff;
+                    font-size: 0.3rem;
+                    letter-spacing: .05rem;
+                }
+            }
+
+            .answer {
+                position: absolute;
+                bottom: 0.3rem;
+                left: 50%;
+                margin-left: -2.6rem;
+                width: 5.2rem;
+                height: 3.6rem;
+                background: url(../img/zf_phoneListen.png) no-repeat;
+                background-size: 100% 100%;
+                .markMove {
+                    position: absolute;
+                    bottom: .49rem;
+                    right: -0.05rem;
+                    box-sizing: border-box;
+                    width: 1.6rem;
+                    height: 1.6rem;
+                    border-radius: 50%;
+                    border: .03rem solid #0f0;
+                    animation: answerMove 1s linear infinite both;
+                    transition: 1s;
+                }
+                .markLink {
+                    .markMove;
+                    border: none;
+                    animation: none;
+                }
+            }
+            .hang {
+                position: absolute;
+                left: 50%;
+                margin-left: -2.6rem;
+                bottom: 0.3rem;
+                width: 5.2rem;
+                height: 6.59rem;
+                background:url(../img/zf_phoneDetail.png) no-repeat;
+                background-size: 100% 100%;
+
+                /* 当点击接听按钮的时候，控制它从下面出来即可，js中改变他的样式 */
+                /* 能用transform就尽量不要之前的传统样式改变，因为transform开启了浏览器的硬件加速，性能更高一点 */
+                transform: translateY(6.89rem);
+                transition: .3s;
+                .markLink {
+                    position: absolute;
+                    left: 50%;
+                    bottom: 0.25rem;
+                    z-index: 1;
+                    margin-left: -0.8rem;
+                    width: 1.6rem;
+                    height: 1.6rem;
+                }
+            }
+        }
+        /* messageBox */
+        &.messageBox {
+            background: #eaeaea;
+            .wrapper {
+                position: absolute;
+                top: 0.2rem;
+                left: 0;
+                width: 100%;
+                transition: .3s;
+
+                li {
+                    position: relative;
+                    padding: 0.25rem;
+                    max-width: 3.6rem;
+                    margin-bottom: 0.4rem;
+                    border-radius: .1rem;
+                    font-size: 0.26rem;
+                    line-height: .4rem;
+                    text-align: justify;
+                    transition: .3s;
+                    opacity: 0;
+
+                    &.active {
+                        animation: messageListMove .3s linear both;
+                    }
+                    .pic {
+                        position: absolute;
+                        top: 0;
+                        width: 0.82rem;
+                        height: 0.82rem;
+                        border-radius: 50%;
+                    }
+                    .arrow {
+                        position: absolute;
+                        top: .2rem;
+                        width: 0.1rem;
+                        height: 0.2rem;
+                    }
+                    &.self {
+                        float: left;
+                        margin-left: 1.25rem;
+                        background: #fff;
+                        border: .02rem solid #cacaca;
+                        .pic {
+                            left:-1rem;
+                        }
+                        .arrow {
+                            left: -.1rem;
+                            background: url(../img/zf_messageArrow1.png) no-repeat;
+                        background-size: 100% 100%;
+                            
+                        }
+                    }
+                    &.inter {
+                        float: right;
+                        margin-right: 1.25rem;
+                        background: #a2ec5c;
+                        border: .02rem solid #96b4c4;
+                        .pic {
+                            right : -1rem;
+                        }
+                        .arrow {
+                            right: -.1rem;
+                            background: url(../img/zf_messageArrow2.png) no-repeat;
+                        background-size: 100% 100%;
+                            
+                        }
+                    }
+                }
+            }
+
+            .keyBoard {
+                position: absolute;
+                left: 0;
+                bottom: -0.5rem;
+                box-sizing: border-box;
+                width: 100%;
+                height: 5.16rem;
+                background: url(../img/zf_messageKeyboard.png) no-repeat;
+                background-size: 100% 100%; 
+
+                transform: translateY(3.7rem);
+                transition: .3s;
+
+                span {
+                    position: absolute;
+                    left: .9rem;
+                    top: .36rem;
+                    width: 4rem;
+                    height: 0.4rem;
+                    font-size: 0.25rem;
+                    line-height: .4rem;
+                }
+                .submit {
+                    display: none;
+                    position: absolute;
+                    right: .1rem;
+                    bottom: .6rem;
+                    width: 1.47rem;
+                    height: 0.74rem;
+                    background: url(../img/zf_messageChat.png) no-repeat;
+                    background-size: 100% 100%; 
+                }
+            }
+        }
+
+        &.cubeBox {
+           background: url(../img/zf_cubeBg.jpg) no-repeat;
+           background-size: cover;
+
+           .cube {
+               position: absolute;
+               width: 5.1rem;
+               height: 5.1rem;
+               top: 50%;
+               left: 50%;
+               z-index: 2;
+               margin: -2.55rem 0 0 -2.55rem;
+
+            li {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 3;
+                width: 100%;
+                height: 100%;
+                img {
+                    display: block;
+                    width: 100%;
+                }
+            }
+           }
+           .tip {
+               position: absolute;
+               bottom: .5rem;
+               left: 50%;
+               margin-left: -1.97rem;
+               width: 3.94rem;
+               height: 0.44rem;
+
+           }
+
+        }
+        /* 实现 3D效果 */
+        &.cubeBox {
+            /* 在二维平面当中实现3D效果
+            1. 给需要实现这种效果的元素所在的舞台设置“视距”（1000~2000）
+            */
+            perspective: 2000px;
+            .cube {
+            /* 给需要操作的元素设置3D效果 */
+            transform-style: preserve-3d;
+            transform: scale(0.7) rotateX(-35deg) rotateY(-35deg);
+            transition: .3s;
+            /* 基于transform 实现3D变形 */
+            li {
+                &:nth-child(1) {
+                    transform: translateZ(2.55rem);
+                }
+                &:nth-child(2) {
+                    transform: translateZ(-2.55rem) rotateY(180deg);
+                }
+                &:nth-child(3) {
+                    transform: translateY(2.55rem) rotateX(90deg);
+                }
+                &:nth-child(4) {
+                    transform: translateY(-2.55rem) rotateX(-90deg);
+                }
+                &:nth-child(5) {
+                    transform: translateX(-2.55rem) rotateY(-90deg);
+                }
+                &:nth-child(6) {
+                    transform: translateX(2.55rem) rotateY(90deg);
+                }
+
+            }
+
+            }
+        
+        }
+
+        &.detailBox {
+            .swiper-container {
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+                .swiper-slide {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    &:nth-child(1) {
+                        background: lightskyblue;
+                    }
+                    &:nth-child(2) {
+                        background: lightcoral;
+                    }
+                    &:nth-child(3) {
+                        background: lightgreen;
+                    }
+                    &:nth-child(4) {
+                        background: lightsalmon;
+                    }
+                    &:nth-child(5) {
+                        background: #fbffe8;
+                    }
+                    &:nth-child(6) {
+                        background: #5975ff;
+                    }
+                    
+                }
+            }
+            .page1 {
+                dl {
+                    position: absolute;
+                    left: 50%;
+                    top: 50%;
+                    height: 7.2rem;
+                    margin-left: -2.7rem;
+                    margin-top: -3.6rem;
+                    line-height: .6rem;
+                    width: 5.4rem;
+
+
+                    dt,dd{
+                        box-sizing: border-box;
+                        height: .6rem;
+                        background: #8fbb4c;
+                      }
+                      dt{
+                        text-align: center;
+                        font-size: .4rem;
+                        color:#ff0;
+                      }
+
+
+                    dd {
+                        position: relative;
+                        padding: 0 .2rem 0 .66rem;
+                        border-top: .02rem dashed rgba(255,255,255,.3);
+
+                        em {
+                            position: absolute;
+                            left: .15rem;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            width: .36rem;
+                            height: 0.42rem;
+                            line-height: 0.42rem;
+                            text-align: center;
+                            font-size: 0.2rem;
+                            color: #fff;
+                            font-style: normal;
+                            background: url(../img/zf_outline.png) no-repeat;
+                            background-size: 100% 100%;
+                        }
+                        a {
+                            position: relative;
+                            display: block;
+                            font-size: 0.28rem;
+                            color: #fff;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;
+                        }
+                        em,a {
+                        /* 基于makisu实现的3D折叠，为了保证内容不被折叠创建的span遮住，我们需要吧内容的层级提高 */
+                            z-index: 1000;
+                        }
+
+                    }
+                }
+                
+            }
+            .page2 {
+                h2{
+                    opacity: 0;
+                    line-height: .9rem;
+                    margin-top: 0.8rem;
+                    font-size: 0.6rem;
+                    text-align: center;
+                    font-weight: normal;
+                }
+                img {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    width: 1rem;
+                    height: 1rem;
+                    margin: -.5rem 0 0 -.5rem;
+                    transition: .5s;
+                    &:nth-last-of-type(1) {
+                        width: 1.32rem;
+                        height: 1.7rem;
+                        margin: -.85rem 0 0 -.66rem;
+                    }
+                }
+            }
+
+            #page2 {
+                h2 {
+                    animation: bounceInLeft 1s both;
+                }
+                img{
+
+                    &:nth-last-of-type(1){
+                      animation: shake 1s both;
+                    }
+                    &:not(:nth-last-of-type(1)){
+                      opacity: 1;
+                      animation: tada 1s .5s infinite both;
+                    }
+                    &:nth-of-type(1){
+                      margin-top: -2.9rem;//-.5-2.4
+                    }
+                    &:nth-of-type(2){
+                      margin-top: -1.7rem;
+                      margin-left:1.5rem;
+                    }
+                    &:nth-of-type(3){
+                      margin-top: .7rem;
+                      margin-left:1.5rem;
+                    }
+                    &:nth-of-type(4){
+                      margin-top: 1.9rem;
+                    }
+                    &:nth-of-type(5){
+                      margin-top: .7rem;
+                      margin-left:-2.5rem;
+                    }
+                    &:nth-of-type(6){
+                      margin-top: -1.7rem;
+                      margin-left:-2.5rem;
+                    }
+                  }
+            }
+        }
+    }
+}
+    @keyframes messageListMove {
+        from {
+            transform: translateY(1rem);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+    @keyframes answerMove {
+        from {
+            transform: scale(1.2);
+            opacity: 0.8;
+            
+        }
+        to {
+            transform: scale(0.6);
+            opacity: 0;
+        }
+    }
+
+   @keyframes loadingMove {
+        0% {
+            background-position: 0 0;
+        }
+        100% {
+            background-position: 0 -.3rem;
+        }
+    }
+
+@keyframes bounceInLeft {
+    from,
+    60%,
+    75%,
+    90%,
+    to {
+        -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(-3000px, 0, 0);
+        transform: translate3d(-3000px, 0, 0);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(25px, 0, 0);
+        transform: translate3d(25px, 0, 0);
+    }
+    75% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+    90% {
+        -webkit-transform: translate3d(5px, 0, 0);
+        transform: translate3d(5px, 0, 0);
+    }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    from,
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: translate3d(-10px, 0, 0);
+        transform: translate3d(-10px, 0, 0);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+        -webkit-transform: translate3d(10px, 0, 0);
+        transform: translate3d(10px, 0, 0);
+    }
+}
+
+@keyframes tada {
+    from {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+    10%,
+    20% {
+        -webkit-transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+    }
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+    to {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
