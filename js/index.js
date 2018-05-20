@@ -352,6 +352,10 @@ let detailRender = (function() {
 我们可以通过表示的判断让程序只执行对应的版块内容，这样开发那个板块，
 我们就把表示改为啥（HASN路由控制） */
 
+$(document).on('touchstart touchmove touchend', (ev) => {
+    ev.preventDefalut ? ev.preventDefalut() : ev.returnValue = false;
+})
+
 let url = window.location.href,
     well = url.indexOf('#'),
     hash = well === -1 ? null : url.substr(well + 1);
